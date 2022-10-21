@@ -1,0 +1,22 @@
+
+name: Grype
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  grype:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build a Docker image
+        run: docker build -t myimage ./debian
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: "myimage"
+      
+
